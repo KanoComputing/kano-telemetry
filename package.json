@@ -8,6 +8,6 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "@kano/common": "^1.0.0"
+    "@kano/common": "^1.0.1"
   }
 }

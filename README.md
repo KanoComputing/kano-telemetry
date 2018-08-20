@@ -129,3 +129,15 @@ const reporter = new MyReporter({
 
 reporter.start(client);
 ```
+
+## Development
+
+### Tests
+
+Using polymer cli, serve the contents of the directory
+
+```
+polymer serve
+```
+
+Then browse to the promted url at `/test`

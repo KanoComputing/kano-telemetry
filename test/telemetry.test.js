@@ -10,6 +10,7 @@ suite('TelemetryClient', () => {
         test('should notify when event is emitted', (done) => {
             client.onDidTrackEvent((event) => {
                 assert.equal(event.name, 'TestEvent', 'Event emitted does not match');
+                assert.exists(event.date, 'Event emitted does not have a date');
                 done();
             });
             client.trackEvent({ name: 'TestEvent' });

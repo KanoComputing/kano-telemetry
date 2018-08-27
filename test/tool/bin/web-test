@@ -10,7 +10,9 @@ require('yargs') // eslint-disable-line
                 describe: 'test directory root',
                 default: './test',
             })
-            .number('port');
+            .option('port', {
+                default: 8000,
+            });
     }, (argv) => {
         serve({ port: argv.port });
         const p = url.resolve('/', argv.root.replace(/\\/g, '/'));

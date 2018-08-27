@@ -6,20 +6,16 @@ async function run({ root = 'test', headless = true, slowMo = 100, timeout = 100
     const { port } = server.address();
 
     (async () => {
-      const browser = await puppeteer.launch({ headless, slowMo, timeout });
-      page = await browser.newPage();
-      const tests = [];
-      const pending = [];
-      const failures = [];
-      const passes = [];
-      await page.exposeFunction('onMochaEvent', (line) => {
-        console.log(line);
-      });
-      await page.exposeFunction('onMochaEnd', () => {
-        browser.close();
-        server.close();
-      });
-      await page.goto(`http://localhost:${port}${root}`);
+        const browser = await puppeteer.launch({ headless, slowMo, timeout });
+        const page = await browser.newPage();
+        await page.exposeFunction('onMochaEvent', (line) => {
+            console.log(line);
+        });
+        await page.exposeFunction('onMochaEnd', () => {
+            browser.close();
+            server.close();
+        });
+        await page.goto(`http://localhost:${port}${root}`);
     })();
 }
 

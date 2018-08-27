@@ -1,5 +1,5 @@
 import { TelemetryClient } from '../index.js';
-import { setup, test, assert, suite, teardown } from '/test/util/tools.js';
+import { assert } from '/test/tool/index.js';
 
 suite('TelemetryClient', () => {
     suite('#collect', () => {

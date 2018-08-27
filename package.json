@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test-jenkins": "node ./test/tool/bin/web-test run ./test > test-results.xml"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"

@@ -1,5 +1,5 @@
 import { TelemetryClient, QueueReporter } from '../index.js';
-import { setup, test, assert, suite, teardown } from '/test/util/tools.js';
+import { assert } from '/test/tool/index.js';
 
 suite('QueueReporter', () => {
     suite('#batch', () => {
@@ -85,6 +85,17 @@ suite('QueueReporter', () => {
             });
             assert.equal(otherReporter._fireInterval, 20, 'Reporter did not update fire interval');
             assert.equal(otherReporter._maxBatchSize, 1000, 'Reporter did not update max batch size');
+        });
+        test('should emit one big batch when asked to flush', (done) => {
+            reporter.onDidBatchEvents((batch) => {
+                assert.equal(batch.events.length, 100, 'Did not flush all events when asked');
+                done();
+            });
+            reporter.start(client);
+            for (let i = 0; i < 100; i += 1) {
+                client.trackEvent({ name: 'TestEvent' });
+            }
+            reporter.flush();
         });
         teardown(() => {
             client.dispose();

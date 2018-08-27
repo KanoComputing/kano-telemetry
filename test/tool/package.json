@@ -1,0 +1,15 @@
+{
+  "name": "@kano/web-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@kano/es6-resolution": "^1.0.8",
+    "connect": "^3.6.6",
+    "mime": "^2.3.1",
+    "node-text-chunk": "^0.1.1",
+    "puppeteer": "^1.7.0",
+    "serve-static": "^1.13.2",
+    "yargs": "^12.0.1"
+  }
+}

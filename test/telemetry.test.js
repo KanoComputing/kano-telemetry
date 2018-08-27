@@ -1,5 +1,5 @@
 import { TelemetryClient } from '../index.js';
-import { setup, test, assert, suite, teardown } from '/test/util/tools.js';
+import { assert } from '/test/tool/index.js';
 
 suite('TelemetryClient', () => {
     suite('#subscribe', () => {
@@ -45,13 +45,18 @@ suite('TelemetryClient', () => {
             client.trackTrace({ message: 'TestTrace'});
         });
         test('should notify page views', (done) => {
+            client.trackPageView({ page: '/test'});
             client.onDidTrackEvent((event) => {
                 assert.equal(event.name, 'PageView', 'Event emitted does not match');
                 assert(event.properties, 'Event does not have properties');
-                assert.equal(event.properties.page, '/test', 'Event does not have correct page in properties');
+                assert.equal(event.properties.page, '/test2', 'Event does not have correct page in properties');
+                assert.equal(event.properties.previousPage, '/test', 'Event does not have correct previousPage in properties');
+                assert.exists(event.properties.duration, 'Event does not have correct duration in properties');
                 done();
             });
-            client.trackPageView({ page: '/test'});
+            setTimeout(() => {
+                client.trackPageView({ page: '/test2'});
+            }, 100);
         });
         teardown(() => {
             client.dispose();

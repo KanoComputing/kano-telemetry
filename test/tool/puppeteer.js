@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { serve } = require('./server/index');
 
-async function run({ root = 'test', headless = false, slowMo = 100, timeout = 10000 } = {}) {
+async function run({ root = 'test', headless = true, slowMo = 100, timeout = 10000 } = {}) {
     const server = serve({ port: 0 });
     const { port } = server.address();
 

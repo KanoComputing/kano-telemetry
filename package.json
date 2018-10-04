@@ -6,7 +6,7 @@
   "scripts": {
     "serve-test": "web-tester serve ./test",
     "test": "web-tester run ./test",
-    "test-jenkins": "yarn run --silent test > test-results.xml",
+    "test-ci": "yarn run --silent test > test-results.xml",
     "checkstyle": "eslint ./index.js ./lib",
     "checkstyle-ci": "yarn checkstyle -f checkstyle -o eslint.xml",
     "prepublishOnly": "yarn checkstyle"

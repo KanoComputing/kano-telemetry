@@ -1,24 +1,54 @@
 #!/usr/bin/env groovy
 
+@Library('kanolib') _
+
 pipeline {
-    agent any
-    tools {
-        nodejs 'Node 8.11.2'
+    agent {
+        label 'ubuntu_18.04'
+    }
+    post {
+        always {
+            junit allowEmptyResults: true, testResults: 'test-results.xml'
+            step([$class: 'CheckStylePublisher', pattern: 'eslint.xml'])
+        }
+        regression {
+            notify_culprits currentBuild.result
+        }
     }
     stages {
-        stage('install deps') {
+        stage('checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('tools') {
             steps {
                 script {
-                    sh "yarn"
-                    sh "cd test/tool && yarn"
+                    def NODE_PATH = tool 'Node 8.11.2'
+                    env.PATH = "${env.PATH}:${NODE_PATH}/bin"
+                    def YARN_PATH = tool 'yarn'
+                    env.PATH = "${env.PATH}:${YARN_PATH}/bin"
                 }
             }
         }
-        stage('run tests') {
+        stage('install dependencies') {
             steps {
                 script {
-                    sh "yarn test-jenkins"
-                    junit 'test-results.xml'
+                    sh "yarn"
+                }
+            }
+        }
+        stage('checkstyle') {
+            steps {
+                script {
+                    sh "yarn checkstyle-ci"
+                }
+            }
+        }
+        stage('test') {
+            steps {
+                script {
+                    sh "yarn test-ci"
                 }
             }
         }

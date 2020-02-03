@@ -1,6 +1,6 @@
 {
   "name": "@kano/telemetry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -12,10 +12,10 @@
     "prepublishOnly": "yarn checkstyle"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
     "@kano/eslint-config": "^1.0.0",
     "@kano/web-tester": "^1.0.0-alpha.3",
     "chai": "^4.1.2",
+    "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.14.0",
     "mocha": "^5.2.0"
   },
